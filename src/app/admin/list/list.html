@@ -1,0 +1,33 @@
+<h5>Manage Accounts</h5>
+<div *ngIf="loading" class="text-center">
+    <span class="spinner-border text-primary"></span>
+</div>
+<table *ngIf="!loading" class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Verified</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let account of accounts">
+            <td>{{ account.firstName }} {{ account.lastName }}</td>
+            <td>{{ account.email }}</td>
+            <td>{{ account.role }}</td>
+            <td>{{ account.isVerified ? 'Yes' : 'No' }}</td>
+            <td>
+                <button (click)="deleteAccount(account.id)" class="btn btn-danger btn-sm"
+                    [disabled]="account.isDeleting">
+                    <span *ngIf="account.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    Delete
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="accounts.length === 0">
+            <td colspan="5" class="text-center">No accounts found</td>
+        </tr>
+    </tbody>
+</table>
